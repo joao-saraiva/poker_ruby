@@ -17,4 +17,9 @@ class PokerSystem
       end
     end
   end
+
+  def shuffle_cards
+    not_shufled_cards = cards
+    self.cards = cards.shuffle while not_shufled_cards == cards
+  end
 end
