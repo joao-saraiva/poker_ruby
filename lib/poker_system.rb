@@ -5,11 +5,12 @@ require 'card'
 # This class represent the entire abstranction of a poker system
 # it will deal with regular things like deal cards, and pick a winner.
 class PokerSystem
-  attr_accessor :cards, :players
+  attr_accessor :cards, :players, :round
 
   def initialize
     @cards = []
     @players = []
+    @round = 1
   end
 
   def load_cards
@@ -26,13 +27,22 @@ class PokerSystem
 
   def shuffle_cards
     not_shufled_cards = cards
-    self.cards = cards.shuffle while not_shufled_cards == cards
+    @cards = cards.shuffle while not_shufled_cards == cards
   end
 
   def deal_cards
     @players.each do |player|
-      not_dealed_cards = @cards.reject(&:dealed?)
       player.receive_cards(not_dealed_cards[0..1])
     end
+  end
+
+  def not_dealed_cards
+    @cards.reject(&:dealed?)
+  end
+
+  def flip_cards
+    to_flip_cards = @round.eql?(1) ? not_dealed_cards[0..2] : [not_dealed_cards[0]]
+    to_flip_cards.each(&:deal)
+    to_flip_cards.map(&:formated_print).join(', ')
   end
 end

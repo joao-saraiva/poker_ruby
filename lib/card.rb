@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'byebug'
 require_relative 'errors/card_error'
 # This class represent a abstracion of a card of a poker game
 class Card
@@ -21,5 +22,9 @@ class Card
 
   def dealed?
     @dealed
+  end
+
+  def formated_print
+    "[#{@naip} | #{@value}]"
   end
 end

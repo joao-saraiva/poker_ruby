@@ -56,4 +56,19 @@ class PokerSystemTest < MiniTest::Test
     cards_player2 = poker_system.players[1].cards
     refute_equal(cards_player, cards_player2)
   end
+
+  def test_flip_cards_round1
+    poker_system = PokerSystem.new
+    poker_system.load_cards
+
+    assert_equal(poker_system.flip_cards, '[♠ | 2], [♠ | 3], [♠ | 4]')
+  end
+
+  def test_flip_cards_round2
+    poker_system = PokerSystem.new
+    poker_system.load_cards
+    poker_system.round = 2
+
+    assert_equal(poker_system.flip_cards, '[♠ | 2]')
+  end
 end
