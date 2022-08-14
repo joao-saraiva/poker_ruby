@@ -92,6 +92,10 @@ class Player
     equal_hand_values(@cards[1])
   end
 
+  def straight_flush_hand?
+    flush_hand? && straight_hand?
+  end
+
   def four_of_kind_hand?
     matched_cards1.size.eql?(4) || matched_cards2.size.eql?(4)
   end

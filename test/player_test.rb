@@ -280,4 +280,28 @@ class PlayerTest < MiniTest::Test
     player.receive_cards([card, card2])
     assert_equal(player.four_of_kind_hand?, false)
   end
+
+  def test_straight_flush_hand
+    player = player_with_round
+    %w[4 5 6].each do |value|
+      player.round.table_cards.cards.push(Card.new("\u2660", value))
+    end
+
+    card = Card.new("\u2660", '2')
+    card2 = Card.new("\u2660", '3')
+    player.receive_cards([card, card2])
+    assert_equal(player.straight_flush_hand?, true)
+  end
+
+  def test_straight_flush_hand_false
+    player = player_with_round
+    %w[4 5 6].each do |value|
+      player.round.table_cards.cards.push(Card.new("\u2665", value))
+    end
+
+    card = Card.new("\u2660", '2')
+    card2 = Card.new("\u2660", '3')
+    player.receive_cards([card, card2])
+    assert_equal(player.straight_flush_hand?, false)
+  end
 end
