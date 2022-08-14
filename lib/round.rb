@@ -21,4 +21,8 @@ class Round
   def open?
     @open
   end
+
+  def players_on_round
+    @poker_system.players.reject(&:folded?)
+  end
 end
