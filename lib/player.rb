@@ -88,6 +88,13 @@ class Player
     equal_hand_values(@cards[1])
   end
 
+  def straight_hand?
+    cards_values = hand.map(&:formated_value)
+    cards_until = (cards_values.min..cards_values.max).to_a
+
+    (cards_until - cards_values).empty?
+  end
+
   def three_of_kind_hand?
     matched_cards1.size >= 3 || matched_cards2.size >= 3
   end

@@ -184,4 +184,28 @@ class PlayerTest < MiniTest::Test
     player.receive_cards([card, card2])
     assert_equal(player.three_of_kind_hand?, false)
   end
+
+  def test_straight_hand
+    player = player_with_round
+    %w[2 3 5].each do |value|
+      player.round.table_cards.cards.push(Card.new("\u2660", value))
+    end
+
+    card = Card.new("\u2660", '4')
+    card2 = Card.new("\u2660", '3')
+    player.receive_cards([card, card2])
+    assert_equal(player.straight_hand?, true)
+  end
+
+  def test_straight_hand_false
+    player = player_with_round
+    %w[2 3 5].each do |value|
+      player.round.table_cards.cards.push(Card.new("\u2660", value))
+    end
+
+    card = Card.new("\u2660", '2')
+    card2 = Card.new("\u2660", '3')
+    player.receive_cards([card, card2])
+    assert_equal(player.straight_hand?, false)
+  end
 end
