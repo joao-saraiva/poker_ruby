@@ -80,16 +80,24 @@ class Player
     hand.select { |hand_card| hand_card.value.eql?(card.value) }
   end
 
+  def matched_cards1
+    equal_hand_values(@cards[0])
+  end
+
+  def matched_cards2
+    equal_hand_values(@cards[1])
+  end
+
+  def three_of_kind_hand?
+    matched_cards1.size >= 3 || matched_cards2.size >= 3
+  end
+
   def two_pair_hand?
-    pair_card1 = equal_hand_values(@cards[0])
-    pair_card2 = equal_hand_values(@cards[1])
-    pair_card1.size >= 2 && pair_card2.size >= 2
+    matched_cards1.size >= 2 && matched_cards2.size >= 2
   end
 
   def pair_hand?
-    pair_card1 = equal_hand_values(@cards[0])
-    pair_card2 = equal_hand_values(@cards[1])
-    pair_card1.size >= 2 || pair_card2.size >= 2
+    matched_cards1.size >= 2 || matched_cards2.size >= 2
   end
 
   def high_card
