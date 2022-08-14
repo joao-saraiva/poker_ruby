@@ -146,7 +146,7 @@ class PlayerTest < MiniTest::Test
     card = Card.new("\u2660", '2')
     card2 = Card.new("\u2660", '3')
     player.receive_cards([card, card2])
-    assert_equal(player.tree_of_kind_hand?, true)
+    assert_equal(player.two_pair_hand?, true)
   end
 
   def test_has_tree_of_kind_false
@@ -158,6 +158,6 @@ class PlayerTest < MiniTest::Test
     card = Card.new("\u2660", '2')
     card2 = Card.new("\u2660", '3')
     player.receive_cards([card, card2])
-    assert_equal(player.tree_of_kind_hand?, false)
+    assert_equal(player.two_pair_hand?, false)
   end
 end
