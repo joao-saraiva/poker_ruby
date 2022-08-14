@@ -45,4 +45,11 @@ class PokerSystem
     to_flip_cards.each(&:deal)
     to_flip_cards.map(&:formated_print).join(', ')
   end
+
+  def define_blinders
+    shuffled_players = @players.shuffle
+
+    shuffled_players[0].set_blind
+    shuffled_players[1].set_big_blind
+  end
 end

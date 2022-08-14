@@ -71,4 +71,14 @@ class PokerSystemTest < MiniTest::Test
 
     assert_equal(poker_system.flip_cards, '[♠ | 2]')
   end
+
+  def test_define_blinders
+    poker_system = PokerSystem.new
+    poker_system.load_player(Player.new(50)) while poker_system.players.size < 2
+    poker_system.define_blinders
+    players = poker_system.players
+    blinders_defined = players.any?(&:blind) && players.any?(&:big_blind?)
+
+    assert_equal(blinders_defined, true)
+  end
 end
