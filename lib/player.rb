@@ -80,12 +80,21 @@ class Player
     hand.select { |hand_card| hand_card.value.eql?(card.value) }
   end
 
+  def equal_naip_values(card)
+    hand.select { |hand_card| hand_card.naip.eql?(card.naip) }
+  end
+
   def matched_cards1
     equal_hand_values(@cards[0])
   end
 
   def matched_cards2
     equal_hand_values(@cards[1])
+  end
+
+  def flush_hand?
+    equal_naip_values(@cards[0]).size >= 5 ||
+      equal_naip_values(@cards[1]).size >= 5
   end
 
   def straight_hand?
