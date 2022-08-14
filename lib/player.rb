@@ -80,6 +80,12 @@ class Player
     hand.select { |hand_card| hand_card.value.eql?(card.value) }
   end
 
+  def tree_of_kind_hand?
+    pair_card1 = equal_hand_values(@cards[0])
+    pair_card2 = equal_hand_values(@cards[1])
+    pair_card1.size >= 2 && pair_card2.size >= 2
+  end
+
   def pair_hand?
     pair_card1 = equal_hand_values(@cards[0])
     pair_card2 = equal_hand_values(@cards[1])

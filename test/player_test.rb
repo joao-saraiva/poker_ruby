@@ -125,7 +125,7 @@ class PlayerTest < MiniTest::Test
     assert_equal(player.pair_hand?, true)
   end
 
-  def test_player_has_pair_with_table_cards_fase
+  def test_player_has_pair_with_table_cards_false
     player = player_with_round
     %w[6 7 5].each do |value|
       player.round.table_cards.cards.push(Card.new("\u2660", value))
@@ -135,5 +135,29 @@ class PlayerTest < MiniTest::Test
     card2 = Card.new("\u2660", '3')
     player.receive_cards([card, card2])
     assert_equal(player.pair_hand?, false)
+  end
+
+  def test_has_tree_of_kind
+    player = player_with_round
+    %w[2 3 5].each do |value|
+      player.round.table_cards.cards.push(Card.new("\u2660", value))
+    end
+
+    card = Card.new("\u2660", '2')
+    card2 = Card.new("\u2660", '3')
+    player.receive_cards([card, card2])
+    assert_equal(player.tree_of_kind_hand?, true)
+  end
+
+  def test_has_tree_of_kind_false
+    player = player_with_round
+    %w[2 4 5].each do |value|
+      player.round.table_cards.cards.push(Card.new("\u2660", value))
+    end
+
+    card = Card.new("\u2660", '2')
+    card2 = Card.new("\u2660", '3')
+    player.receive_cards([card, card2])
+    assert_equal(player.tree_of_kind_hand?, false)
   end
 end
