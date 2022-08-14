@@ -75,4 +75,13 @@ class PlayerTest < MiniTest::Test
     player.fold
     assert_raises(PlayerError, 'already folded') { player.fold }
   end
+
+  def test_player_high_card
+    player = Player.new(50)
+    card = Card.new("\u2660", '2')
+    card2 = Card.new("\u2660", 'J')
+
+    player.receive_cards([card, card2])
+    assert_equal(player.high_card, 11)
+  end
 end

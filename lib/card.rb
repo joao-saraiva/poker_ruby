@@ -27,4 +27,8 @@ class Card
   def formated_print
     "[#{@naip} | #{@value}]"
   end
+
+  def formated_value
+    VALUES.find_index(@value) + 2
+  end
 end

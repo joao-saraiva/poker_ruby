@@ -22,4 +22,16 @@ class CardTest < MiniTest::Test
 
     assert_raises(CardError, 'already dealed') { card.deal }
   end
+
+  def test_formated_value
+    card = Card.new("\u2660", '2')
+
+    assert_equal(card.formated_value, 2)
+  end
+
+  def test_formated_value_non_number
+    card = Card.new("\u2660", 'J')
+
+    assert_equal(card.formated_value, 11)
+  end
 end

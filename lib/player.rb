@@ -69,4 +69,8 @@ class Player
   def enter_round(round)
     @round = round
   end
+
+  def high_card
+    @cards.map(&:formated_value).max
+  end
 end
