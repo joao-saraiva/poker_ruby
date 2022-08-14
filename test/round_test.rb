@@ -41,4 +41,20 @@ class RoundTest < MiniTest::Test
     assert_equal(round.players_on_round.include?(player1), true)
     assert_equal(round.players_on_round.include?(player2), false)
   end
+
+  def test_final_round
+    poker_system = PokerSystem.new
+    round = Round.new(poker_system)
+    round.number = 3
+
+    assert_equal(round.final_round?, true)
+  end
+
+  def test_final_round_false
+    poker_system = PokerSystem.new
+    round = Round.new(poker_system)
+    round.number = 1
+
+    assert_equal(round.final_round?, false)
+  end
 end

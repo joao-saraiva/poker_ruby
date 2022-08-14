@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'byebug'
 require 'errors/round_error'
 # This class represente the absstractions of a poker round, by this class you
 # should be able to manipulate it.
@@ -24,5 +25,9 @@ class Round
 
   def players_on_round
     @poker_system.players.reject(&:folded?)
+  end
+
+  def final_round?
+    @number.eql?(3)
   end
 end
