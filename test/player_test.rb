@@ -256,4 +256,28 @@ class PlayerTest < MiniTest::Test
     player.receive_cards([card, card2])
     assert_equal(player.full_house_hand?, false)
   end
+
+  def test_four_of_kind_hand
+    player = player_with_round
+    %w[2 2 2].each do |value|
+      player.round.table_cards.cards.push(Card.new("\u2665", value))
+    end
+
+    card = Card.new("\u2660", '2')
+    card2 = Card.new("\u2660", '3')
+    player.receive_cards([card, card2])
+    assert_equal(player.four_of_kind_hand?, true)
+  end
+
+  def test_four_of_kind_hand_false
+    player = player_with_round
+    %w[2 2 3].each do |value|
+      player.round.table_cards.cards.push(Card.new("\u2665", value))
+    end
+
+    card = Card.new("\u2660", '2')
+    card2 = Card.new("\u2660", '3')
+    player.receive_cards([card, card2])
+    assert_equal(player.four_of_kind_hand?, false)
+  end
 end
