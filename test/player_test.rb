@@ -84,4 +84,22 @@ class PlayerTest < MiniTest::Test
     player.receive_cards([card, card2])
     assert_equal(player.high_card, 11)
   end
+
+  def test_player_has_pair?
+    player = Player.new(50)
+    card = Card.new("\u2660", '2')
+    card2 = Card.new("\u2660", '2')
+
+    player.receive_cards([card, card2])
+    assert_equal(player.pair_hand?, true)
+  end
+
+  def test_player_has_pair_false
+    player = Player.new(50)
+    card = Card.new("\u2660", '2')
+    card2 = Card.new("\u2660", '3')
+
+    player.receive_cards([card, card2])
+    assert_equal(player.pair_hand?, false)
+  end
 end

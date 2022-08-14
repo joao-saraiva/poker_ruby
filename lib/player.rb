@@ -70,6 +70,10 @@ class Player
     @round = round
   end
 
+  def pair_hand?
+    @cards.all? { |card| card.value.eql?(cards[0].value) }
+  end
+
   def high_card
     @cards.map(&:formated_value).max
   end
