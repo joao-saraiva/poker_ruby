@@ -92,6 +92,10 @@ class Player
     equal_hand_values(@cards[1])
   end
 
+  def full_house_hand?
+    pair_hand? && three_of_kind_hand?
+  end
+
   def flush_hand?
     equal_naip_values(@cards[0]).size >= 5 ||
       equal_naip_values(@cards[1]).size >= 5
