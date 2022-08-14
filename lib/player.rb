@@ -26,6 +26,8 @@ class Player
     @gems -= gems
   end
 
+  alias raise_bet bet
+
   def fold
     raise PlayerError, 'already folded' if folded?
     raise PlayerError, 'cant fold without a round' if @round.nil?
