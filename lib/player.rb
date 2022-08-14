@@ -70,8 +70,20 @@ class Player
     @round = round
   end
 
+  def hand
+    return @cards + @round.table_cards.cards unless @round.nil?
+
+    @cards
+  end
+
+  def equal_hand_values(card)
+    hand.select { |hand_card| hand_card.value.eql?(card.value) }
+  end
+
   def pair_hand?
-    @cards.all? { |card| card.value.eql?(cards[0].value) }
+    pair_card1 = equal_hand_values(@cards[0])
+    pair_card2 = equal_hand_values(@cards[1])
+    pair_card1.size >= 2 || pair_card2.size >= 2
   end
 
   def high_card

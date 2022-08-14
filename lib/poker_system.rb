@@ -42,6 +42,7 @@ class PokerSystem
   def flip_cards
     to_flip_cards = @round.eql?(1) ? not_dealed_cards[0..2] : [not_dealed_cards[0]]
     to_flip_cards.each(&:deal)
+    round.table_cards.cards += to_flip_cards
     to_flip_cards.map(&:formated_print).join(', ')
   end
 

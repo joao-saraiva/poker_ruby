@@ -5,7 +5,7 @@ require 'errors/round_error'
 # This class represente the absstractions of a poker round, by this class you
 # should be able to manipulate it.
 class Round
-  attr_accessor :open, :number, :poker_system
+  attr_accessor :open, :number, :poker_system, :table_cards
 
   def initialize(poker_system)
     @open = false

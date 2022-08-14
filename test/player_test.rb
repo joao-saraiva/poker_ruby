@@ -5,10 +5,19 @@ require_relative '../lib/player'
 require_relative '../lib/card'
 require_relative '../lib/poker_system'
 require_relative '../lib/round'
+require_relative '../lib/table_card'
 
 # This class Works of abstractions of poker player, its the mother class for
 # enemies and user.
 class PlayerTest < MiniTest::Test
+  def player_with_round
+    player = Player.new(50)
+    round = Round.new(PokerSystem.new)
+    round.table_cards = TableCard.new
+    player.enter_round(round)
+    player
+  end
+
   def test_initialize_with_invalid_gems
     assert_raises(GemAmountError, 'you cant start without gems') { Player.new }
   end
@@ -99,6 +108,31 @@ class PlayerTest < MiniTest::Test
     card = Card.new("\u2660", '2')
     card2 = Card.new("\u2660", '3')
 
+    player.receive_cards([card, card2])
+    assert_equal(player.pair_hand?, false)
+  end
+
+  def test_player_has_pair_with_table_cards
+    player = player_with_round
+    %w[2 4 5].each do |value|
+      player.round.table_cards.cards.push(Card.new("\u2660", value))
+    end
+
+    card = Card.new("\u2660", '2')
+    card2 = Card.new("\u2660", '3')
+
+    player.receive_cards([card, card2])
+    assert_equal(player.pair_hand?, true)
+  end
+
+  def test_player_has_pair_with_table_cards_fase
+    player = player_with_round
+    %w[6 7 5].each do |value|
+      player.round.table_cards.cards.push(Card.new("\u2660", value))
+    end
+
+    card = Card.new("\u2660", '2')
+    card2 = Card.new("\u2660", '3')
     player.receive_cards([card, card2])
     assert_equal(player.pair_hand?, false)
   end
