@@ -2,11 +2,12 @@
 
 require 'byebug'
 require_relative 'errors/gem_amount_error'
+require_relative 'errors/player_error'
 
 # This class represent the abstractions of a player, its the mother class of
 # enemy class and user_player
 class Player
-  attr_accessor :gems, :turn, :wins, :cards, :folded, :blind, :big_blind
+  attr_accessor :gems, :turn, :wins, :cards, :folded, :blind, :big_blind, :round
 
   def initialize(gems = 0)
     raise GemAmountError, 'you cant start without gems' if gems.to_f <= 0
@@ -23,6 +24,13 @@ class Player
     raise GemAmountError, 'cant bet more than you have' if gems.to_f > @gems
 
     @gems -= gems
+  end
+
+  def fold
+    raise PlayerError, 'already folded' if folded?
+    raise PlayerError, 'cant fold without a round' if @round.nil?
+
+    @folded = true
   end
 
   def set_blind
@@ -48,5 +56,9 @@ class Player
 
   def big_blind?
     @big_blind
+  end
+
+  def enter_round(round)
+    @round = round
   end
 end

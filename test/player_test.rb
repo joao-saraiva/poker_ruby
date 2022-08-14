@@ -3,6 +3,8 @@
 require 'minitest/autorun'
 require_relative '../lib/player'
 require_relative '../lib/card'
+require_relative '../lib/poker_system'
+require_relative '../lib/round'
 
 # This class Works of abstractions of poker player, its the mother class for
 # enemies and user.
@@ -42,5 +44,35 @@ class PlayerTest < MiniTest::Test
     player.receive_cards([card, card2])
     dealed_cards = player.cards.select(&:dealed?).size
     assert_equal(dealed_cards, 2)
+  end
+
+  def test_enter_round
+    player = Player.new(50)
+    round = Round.new(PokerSystem.new)
+
+    player.enter_round(round)
+    assert_equal(player.round, round)
+  end
+
+  def test_fold
+    player = Player.new(50)
+    round = Round.new(PokerSystem.new)
+
+    player.enter_round(round)
+    assert_equal(player.fold, true)
+  end
+
+  def test_fold_without_round
+    player = Player.new(50)
+    assert_raises(PlayerError, 'cant start without a round') { player.fold }
+  end
+
+  def test_fold_already_folded
+    player = Player.new(50)
+    round = Round.new(PokerSystem.new)
+
+    player.enter_round(round)
+    player.fold
+    assert_raises(PlayerError, 'already folded') { player.fold }
   end
 end
