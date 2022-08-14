@@ -10,7 +10,6 @@ class PokerSystem
   def initialize
     @cards = []
     @players = []
-    @round = 1
   end
 
   def load_cards
@@ -51,5 +50,24 @@ class PokerSystem
 
     shuffled_players[0].set_blind
     shuffled_players[1].set_big_blind
+  end
+
+  def prepare_next_round
+    shuffle_cards
+    define_blinders
+  end
+
+  def start_game(players, round)
+    load_cards
+    init_round(round)
+    players.each do |player|
+      load_player(player)
+    end
+
+    prepare_next_round
+  end
+
+  def init_round(round)
+    @round = round
   end
 end

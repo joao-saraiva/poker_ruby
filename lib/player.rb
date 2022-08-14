@@ -7,7 +7,8 @@ require_relative 'errors/player_error'
 # This class represent the abstractions of a player, its the mother class of
 # enemy class and user_player
 class Player
-  attr_accessor :gems, :turn, :wins, :cards, :folded, :blind, :big_blind, :round
+  attr_accessor :gems, :turn, :wins, :cards, :folded, :blind, :big_blind,
+                :round, :betting_now
 
   def initialize(gems = 0)
     raise GemAmountError, 'you cant start without gems' if gems.to_f <= 0
@@ -18,6 +19,7 @@ class Player
     @cards = []
     @blind = false
     @big_blind = false
+    @betting_now = false
   end
 
   def bet(gems)
@@ -58,6 +60,10 @@ class Player
 
   def big_blind?
     @big_blind
+  end
+
+  def betting_now?
+    @betting_now
   end
 
   def enter_round(round)
