@@ -92,6 +92,18 @@ class Player
     equal_hand_values(@cards[1])
   end
 
+  def straight_cards
+    cards_values = hand.map(&:formated_value)
+    (cards_values.min..cards_values.max).to_a
+  end
+
+  def royal_flush_hand?
+    return false unless straight_flush_hand?
+
+    royal_sequency = [10, 11, 12, 13, 14]
+    (straight_cards - royal_sequency).empty?
+  end
+
   def straight_flush_hand?
     flush_hand? && straight_hand?
   end
