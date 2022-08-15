@@ -10,8 +10,8 @@ class Card
   attr_accessor :value, :naip, :dealed
 
   def initialize(naip, value)
-    self.naip = naip
-    self.value = value
+    @naip = naip
+    @value = value
   end
 
   def deal
