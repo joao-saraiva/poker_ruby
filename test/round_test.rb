@@ -1,7 +1,9 @@
 #  frozen_string_literal: true
 
 require_relative '../lib/round'
+require_relative '../lib/table_card'
 require_relative '../lib/poker_system'
+require_relative '../lib/hand'
 require_relative '../lib/player'
 require 'minitest/autorun'
 
@@ -56,5 +58,27 @@ class RoundTest < MiniTest::Test
     round.number = 1
 
     assert_equal(round.final_round?, false)
+  end 
+
+  def test_define_winner
+    poker_system = PokerSystem.new
+    round = Round.new(poker_system)
+    round.table_cards = TableCard.new
+    poker_system.load_player(Player.new(50)) while poker_system.players.size < 2
+    player1 = poker_system.players[0]
+    player2 = poker_system.players[1]
+    player1.enter_round(round)
+    player2.enter_round(round)
+
+    %w[2 3 5].each do |value|
+      player1.round.table_cards.cards.push(Card.new("\u2660", value))
+    end
+
+    player1.receive_cards([Card.new("\u2660", '2'), Card.new("\u2660", '3')])
+    player2.receive_cards([Card.new("\u2665", '7'), Card.new("\u2665", '8')])
+
+    Hand.new(player1)
+    Hand.new(player2)
+    assert_equal(round.define_winner, player1)
   end
 end

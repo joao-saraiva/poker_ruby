@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+require 'byebug'
 # This represent the entire hand of the player, by here you can determine the
 # player hands power.
 class Hand
   attr_accessor :player, :cards
 
   def initialize(player)
+    player.hand = self
     @player = player
     @cards = player.cards
   end
@@ -14,6 +16,19 @@ class Hand
     return @cards + @player.round.table_cards.cards unless @player.round.nil?
 
     @cards
+  end
+
+  def hand_power
+    return 100 if royal_flush_hand?
+    return 90 if straight_flush_hand?
+    return 80 if four_of_kind_hand?
+    return 70 if full_house_hand?
+    return 60 if flush_hand?
+    return 50 if straight_hand?
+    return 40 if three_of_kind_hand?
+    return 30 if two_pair_hand?
+    return 20 if pair_hand?
+    high_card
   end
 
   def equal_hand_values(card)

@@ -30,4 +30,8 @@ class Round
   def final_round?
     @number.eql?(3)
   end
+  
+  def define_winner
+    players_on_round.max_by{ |player| player.hand.hand_power }
+  end
 end

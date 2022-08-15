@@ -8,7 +8,7 @@ require_relative 'errors/player_error'
 # enemy class and user_player
 class Player
   attr_accessor :gems, :turn, :wins, :cards, :folded, :blind, :big_blind,
-                :round, :betting_now
+                :round, :betting_now, :hand
 
   def initialize(gems = 0)
     raise GemAmountError, 'you cant start without gems' if gems.to_f <= 0
