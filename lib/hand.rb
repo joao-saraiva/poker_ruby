@@ -28,6 +28,7 @@ class Hand
     return 40 if three_of_kind_hand?
     return 30 if two_pair_hand?
     return 20 if pair_hand?
+
     high_card
   end
 

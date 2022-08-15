@@ -58,7 +58,7 @@ class RoundTest < MiniTest::Test
     round.number = 1
 
     assert_equal(round.final_round?, false)
-  end 
+  end
 
   def test_define_winner
     poker_system = PokerSystem.new
