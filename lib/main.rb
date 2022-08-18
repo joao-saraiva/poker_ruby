@@ -1,17 +1,20 @@
 require_relative 'poker_system'
+
 require 'pstore'
+require 'colorize'
+
 def select_action
     menu_action = nil
 
     while menu_action != '1' && menu_action != '2'
-        puts 'Welcome to Poker Ruby'
+        system "clear"
+
+        print 'Welcome to Poker Ruby'.colorize(:red)
+        puts ' Select one'
         puts '1 - New Game'
         puts '2 - Load Game'
-        puts 'Select one'
 
         menu_action = gets.chomp
-
-        system "clear"
     end
 
     return menu_action
