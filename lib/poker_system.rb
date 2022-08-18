@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'byebug'
-require 'card'
+require_relative 'card'
 # This class represent the entire abstranction of a poker system
 # it will deal with regular things like deal cards, and pick a winner.
 class PokerSystem
